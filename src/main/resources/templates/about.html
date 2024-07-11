@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head"></head>
+<body>
+<div th:replace="fragments/layout :: nav"></div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <img src="my_photo.jpg" alt="Фото разработчика" class="rounded-circle mb-3" style="max-width: 200px;">
+                    <h1 class="card-title mb-3">Александр Алёнушка</h1>
+                    <p class="lead mb-4">Начинающий разработчик и студент в области информационных технологий</p>
+
+                    <h3 class="mb-3">Обо мне</h3>
+                    <p class="mb-4">
+                        Мне 21 год, я студент 4 курса Самарского национального исследовательского университета,
+                        обучающийся по направлению "Фундаментальная информатика и информационные технологии".
+                        Увлечен программированием и технологиями, всегда стремлюсь к профессиональному росту и развитию.
+                    </p>
+
+                    <h3 class="mb-3">Технические навыки</h3>
+                    <div class="mb-4">
+                        <span class="badge bg-primary m-1">Ruby/Ruby on Rails</span>
+                        <span class="badge bg-primary m-1">JavaScript</span>
+                        <span class="badge bg-primary m-1">Node.js</span>
+                        <span class="badge bg-primary m-1">Express.js</span>
+                        <span class="badge bg-primary m-1">C/C++</span>
+                        <span class="badge bg-primary m-1">QT</span>
+                        <span class="badge bg-primary m-1">SQL</span>
+                        <span class="badge bg-primary m-1">MySQL</span>
+                        <span class="badge bg-primary m-1">PostgreSQL</span>
+                    </div>
+
+                    <h3 class="mb-3">Увлечения</h3>
+                    <p class="mb-4">
+                        Бальные танцы (в прошлом) • Хип-хоп (в настоящее время) • Футбол • Волейбол
+                    </p>
+
+                    <p class="mb-4">
+                        Я стремлюсь применить свои технические знания и творческий подход к решению сложных задач в области информационных технологий.
+                        Мой опыт в программировании в сочетании с активным образом жизни помогает мне поддерживать баланс и всесторонне развиваться как профессионал.
+                    </p>
+
+                    <div class="mt-4">
+                        <a href="https://t.me/Darik_01" target="_blank" class="btn btn-outline-primary me-2">Telegram</a>
+                        <a href="https://vk.com/cheburashkasasha" target="_blank" class="btn btn-outline-primary me-2">VK</a>
+                        <a href="mailto:sashaalenushka@gmail.com" class="btn btn-outline-primary">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/layout :: script"></div>
+</body>
+</html>

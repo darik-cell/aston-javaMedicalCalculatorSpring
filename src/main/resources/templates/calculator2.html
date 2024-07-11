@@ -1,0 +1,73 @@
+<!-- calculator2.html -->
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head"></head>
+<body>
+<div th:replace="fragments/layout :: nav"></div>
+
+<div class="container mt-4">
+    <h1>Калькулятор Devine</h1>
+    <form id="calculatorForm">
+        <input type="hidden" name="calculatorName" value="devine">
+        <div class="mb-3">
+            <label for="height" class="form-label">Рост (см)</label>
+            <input type="number" class="form-control" id="height" name="height" required>
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Пол</label>
+            <select class="form-select" id="gender" name="gender" required>
+                <option value="MALE">Мужской</option>
+                <option value="FEMALE">Женский</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Рассчитать</button>
+    </form>
+    <div id="result" class="mt-4 p-4 bg-light rounded shadow-sm d-none">
+        <!-- Здесь будет отображаться результат -->
+    </div>
+
+    <h2>Об этом калькуляторе</h2>
+    <p>
+        Расчет идеальной массы тела по методу Devine
+    </p>
+
+    <h2>Формула</h2>
+    <p>
+        Формула для расчета идеальной массы тела по методу Devine:
+    </p>
+    <ul>
+        <li>мужчины: ИМТ = 50 + 2.3 * (0.394 * рост (см) - 60);</li>
+        <li>женщины: ИМТ = 45.5 + 2.3 * (0.394 * рост (см) - 60).</li>
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#calculatorForm").submit(function(event) {
+            event.preventDefault();
+            var height = parseFloat($("#height").val());
+            var gender = $("#gender").val();
+            var idealWeight = calculateDevine(height, gender);
+            var resultContainer = $("#result");
+            resultContainer.html(`
+                <h4 class="mb-3">Результат расчета:</h4>
+                <p class="display-4 text-primary mb-3">${idealWeight.toFixed(2)} кг</p>
+                <p class="lead">Это ваша идеальная масса тела по методу Devine.</p>
+            `);
+            resultContainer.removeClass('d-none').addClass('d-block');
+        });
+    });
+
+    function calculateDevine(height, gender) {
+        var heightInInches = height * 0.394;
+        if (gender === 'MALE') {
+            return 50 + 2.3 * (heightInInches - 60);
+        } else {
+            return 45.5 + 2.3 * (heightInInches - 60);
+        }
+    }
+</script>
+
+<div th:replace="fragments/layout :: script"></div>
+</body>
+</html>

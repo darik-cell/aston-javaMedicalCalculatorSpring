@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head"></head>
+<body>
+<div th:replace="fragments/layout :: nav"></div>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Медицинские калькуляторы</h1>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Калькулятор ИМТ</h5>
+                    <p class="card-text">Рассчитайте свой индекс массы тела.</p>
+                    <a href="/calculator1" class="btn btn-primary">Перейти к калькулятору</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Калькулятор Devine</h5>
+                    <p class="card-text">Рассчитайте идеальный вес по формуле Devine.</p>
+                    <a href="/calculator2" class="btn btn-primary">Перейти к калькулятору</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/layout :: script"></div>
+</body>
+</html>

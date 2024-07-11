@@ -1,0 +1,119 @@
+<!-- calculator1.html -->
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head"></head>
+<body>
+<div th:replace="fragments/layout :: nav"></div>
+
+<div class="container mt-4">
+    <h1>Калькулятор ИМТ</h1>
+    <form id="calculatorForm">
+        <input type="hidden" name="calculatorName" value="imt">
+        <div class="mb-3">
+            <label for="weight" class="form-label">Вес (кг)</label>
+            <input type="number" class="form-control" id="weight" name="weight" required>
+        </div>
+        <div class="mb-3">
+            <label for="height" class="form-label">Рост (см)</label>
+            <input type="number" class="form-control" id="height" name="height" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Рассчитать</button>
+    </form>
+    <div id="result" class="mt-4 p-4 bg-light rounded shadow-sm d-none">
+        <!-- Здесь будет отображаться результат -->
+    </div>
+    <h2>Об этом калькуляторе</h2>
+    <p>
+        Этот калькулятор позволяет быстро и просто рассчитать индекс массы тела (ИМТ).
+    </p>
+
+    <h2>Формула расчета</h2>
+    <p>
+        Для расчета ИМТ используется следующая формула:
+    </p>
+    <p>
+        I = m / h²
+    </p>
+    <p>
+        где: m — масса тела в килограммах; h — рост в метрах; измеряется в кг/м².
+    </p>
+
+    <h2>Принцип работы</h2>
+    <p>
+        Калькулятор рассчитывает показатели в следующих интервалах: рост не более 300 см; вес не менее 10 кг.
+        Возможен ввод дробных значений веса с точностью до одного знака после запятой.
+    </p>
+
+    <h2>Интерпретация результатов</h2>
+    <p>
+        В соответствии с рекомендациями ВОЗ разработана следующая интерпретация показателей ИМТ:
+    </p>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Индекс массы тела</th>
+            <th>Соответствие между массой человека и его ростом</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>16 и менее</td><td>Выраженный дефицит массы тела</td></tr>
+        <tr><td>16—18,5</td><td>Недостаточная (дефицит) масса тела</td></tr>
+        <tr><td>18,5—25</td><td>Норма</td></tr>
+        <tr><td>25—30</td><td>Избыточная масса тела (предожирение)</td></tr>
+        <tr><td>30—35</td><td>Ожирение первой степени</td></tr>
+        <tr><td>35—40</td><td>Ожирение второй степени</td></tr>
+        <tr><td>40 и более</td><td>Ожирение третьей степени (морбидное)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Дополнительные сведения</h2>
+    <p>
+        Целесообразно рассчитывать индекс массы тела для лиц старше 19 лет.
+    </p>
+    <p>
+        Индекс массы тела следует применять с осторожностью, исключительно для ориентировочной оценки — например, попытка оценить с его помощью телосложение профессиональных спортсменов может дать неверный результат (высокое значение индекса в этом случае объясняется развитой мускулатурой). Поэтому для более точной оценки степени накопления жира наряду с индексом массы тела целесообразно определять также индексы центрального ожирения.
+    </p>
+</div>
+<script>
+    $(document).ready(function() {
+        $("#calculatorForm").submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '/calculate',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    var imt = response.result;
+                    var resultContainer = $("#result");
+                    resultContainer.html(`
+                        <h4 class="mb-3">Ваш индекс массы тела (ИМТ):</h4>
+                        <p class="display-4 text-primary mb-3">${imt.toFixed(2)}</p>
+                        <p class="lead">${getIMTInterpretation(imt)}</p>
+                    `);
+                    resultContainer.removeClass('d-none').addClass('d-block');
+                },
+                error: function(xhr, status, error) {
+                    $("#result").html("<p class='text-danger'>Произошла ошибка при расчете. Пожалуйста, попробуйте снова.</p>");
+                    $("#result").removeClass('d-none').addClass('d-block');
+                    console.error("Ошибка AJAX:", status, error);
+                }
+            });
+        });
+    });
+
+    function getIMTInterpretation(imt) {
+        if (imt < 18.5) {
+            return "Недостаточный вес";
+        } else if (imt >= 18.5 && imt < 25) {
+            return "Нормальный вес";
+        } else if (imt >= 25 && imt < 30) {
+            return "Избыточный вес";
+        } else {
+            return "Ожирение";
+        }
+    }
+</script>
+
+<div th:replace="fragments/layout :: script"></div>
+</body>
+</html>
