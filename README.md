@@ -1,1 +1,1 @@
-# aston-javaMedicalCalculatorSpring
+# openCode-javaMedicalCalculatorSpring
